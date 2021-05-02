@@ -6,12 +6,6 @@ from models.people import PeopleModel
 class People(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
-        'name',
-        type=str,
-        required=True,
-        help="This field cannot be left blank!"
-    )
-    parser.add_argument(
         'role',
         type=str,
         required=True,
@@ -24,7 +18,6 @@ class People(Resource):
         help="Everyone needs an email."
     )
 
-    @jwt_required()
     def get(self, name):
         person = PeopleModel.find_by_name(name)
         if person:
