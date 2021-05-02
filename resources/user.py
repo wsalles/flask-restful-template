@@ -1,24 +1,25 @@
 from flask_restful import Resource, reqparse
 from models.user import UserModel
+from sources.common import non_empty_value
 
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
         'username',
-        type=str,
+        type=non_empty_value,
         required=True,
         help="This field cannot be blank"
     )
     parser.add_argument(
         'password',
-        type=str,
+        type=non_empty_value,
         required=True,
         help="This field cannot be blank"
     )
     parser.add_argument(
         'group_id',
-        type=str,
+        type=non_empty_value,
         default=1,
         help="This field cannot be black",
     )

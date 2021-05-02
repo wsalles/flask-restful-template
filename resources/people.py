@@ -1,19 +1,19 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
 from models.people import PeopleModel
+from sources.common import non_empty_value
 
 
 class People(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
         'role',
-        type=str,
+        type=non_empty_value,
         required=True,
         help="Everyone should have a role."
     )
     parser.add_argument(
         'email',
-        type=str,
+        type=non_empty_value,
         required=True,
         help="Everyone needs an email."
     )
