@@ -1,20 +1,19 @@
 from sources.db import db
 
 
-class CareerModel(db.Model):
-    __tablename__ = 'careers'
+class GroupModel(db.Model):
+    __tablename__ = 'groups'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    description = db.Column(db.String(300))
 
-    people = db.relationship('PeopleModel', lazy='dynamic')
+    users = db.relationship('UserModel', lazy='dynamic')
 
     def __init__(self, name):
         self.name = name
 
     def json(self):
-        return {'name': self.name, 'people': [person.json() for person in self.people.all()]}
+        return {'name': self.name, 'users': [u.json() for u in self.users.all()]}
 
     @classmethod
     def find_by_name(cls, name):
