@@ -9,14 +9,10 @@ class PeopleModel(db.Model):
     role = db.Column(db.String(80))
     email = db.Column(db.String(80))
 
-    career_id = db.Column(db.Integer, db.ForeignKey('careers.id'))
-    careers = db.relationship('CareerModel')
-
-    def __init__(self, name, role, email, career_id):
+    def __init__(self, name, role, email):
         self.name = name
         self.role = role
         self.email = email
-        self.career_id = career_id
 
     def json(self):
         return {'name': self.name, 'role': self.role, 'email': self.email}

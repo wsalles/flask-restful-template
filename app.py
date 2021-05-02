@@ -6,7 +6,7 @@ from sources.security import authenticate, identify
 
 from resources.people import People, PeopleList
 from resources.user import UserRegister
-from resources.career import Career, CareerList
+from resources.group import Group, GroupList
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'wallace.salles'
 api = Api(app)
+db.init_app(app)
 
 
 @app.before_first_request
@@ -30,11 +31,10 @@ def index():
 
 
 api.add_resource(PeopleList, '/people')
-api.add_resource(People, '/people/<name>')
-api.add_resource(CareerList, '/careers')
-api.add_resource(Career, '/career/<name>')
-api.add_resource(UserRegister, '/register')
+api.add_resource(People, '/person/<name>')
+api.add_resource(GroupList, '/groups')
+api.add_resource(Group, '/group/<name>')
+api.add_resource(UserRegister, '/register', '/register/<username>')
 
 if "__main__" == __name__:
-    db.init_app(app)
     app.run(host='0.0.0.0', port=5000)
