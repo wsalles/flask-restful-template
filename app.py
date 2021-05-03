@@ -27,7 +27,17 @@ jwt = JWT(app, authenticate, identify)
 
 @app.route('/')
 def index():
-    return "Hello World!"
+    style = "border-color:black;border-style:solid;border-width:1px"
+    routes = f"<table align=center><thead>"
+    for url in app.url_map.iter_rules():
+        routes += f'''
+          <tr>
+            <th><h3 align="left" style={style}>{url}</h3></th>
+            <th><h3 align="left" style={style}>{url.methods}</h3></th>
+          </tr>
+    '''
+    routes += "</thead></table>"
+    return routes
 
 
 api.add_resource(PeopleList, '/people')
