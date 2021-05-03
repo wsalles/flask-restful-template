@@ -3,8 +3,9 @@
 
 # Main variables
 BASE_URL := http://localhost:5000
-USERNAME := wallace  # JWT
-PASSWORD := salles   # JWT
+# JWT
+jwt_user := wallace
+jwt_pass := salles
 
 # ENVIRONMENT -----------------------------------------------------------------------------
 setup:
@@ -25,7 +26,7 @@ routes:
 token:
 	@curl -X POST ${BASE_URL}/auth \
 		-H 'content-type: application/json' \
-		-d '{"username": "${USERNAME}", "password": "${PASSWORD}"}'
+		-d '{"username": "${jwt_user}", "password": "${jwt_pass}"}'
 
 # PERSON ----------------------------------------------------------------------------------
 create-person: check_person
