@@ -2,9 +2,30 @@
 This is a simple REST API project with Python template.
 
 The project has:
-- Flask-RESTFul
-- Flask-JWT
-- Flask-SQLAlchemy
+
+<table align="center">
+<tr>
+  <td><b>Library</b></td>
+  <td><b>Documentation</b></td>
+</tr>
+<tr>
+  <td>Flask-RESTFul</td>
+  <td><a href="https://flask-restful.readthedocs.io/en/latest/">https://flask-restful.readthedocs.io/en/latest/</a></td>
+</tr>
+<tr>
+  <td>Flask-JWT</td>
+  <td><a href="https://pythonhosted.org/Flask-JWT/">https://pythonhosted.org/Flask-JWT/</a></td>
+</tr>
+<tr>
+  <td>Flask-SQLAlchemy</td>
+  <td><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/">https://flask-sqlalchemy.palletsprojects.com/en/2.x/</a></td>
+</tr>
+<tr>
+  <td>Flask-ApiSpec (Swagger UI/API)</td>
+  <td><a href="https://flask-apispec.readthedocs.io/en/latest/">https://flask-apispec.readthedocs.io/en/latest/</a></td>
+</tr>
+</table>
+
 
 So, next we will see more details.
 
@@ -92,7 +113,26 @@ spawned uWSGI worker 10 (pid: 63378, cores: 4)
 > However, If you really need to run in production mode, I strongly recommend that you use **docker**, like
       *Kubernetes* or *Docker Swarm*.
       
-Now that you have chosen the mode (prod or dev), you need to build some important data, for example:
+Now that you have chosen the mode (prod or dev), you need to build some important data.
+
+There are two options:
+
+- **Swagger UI**;
+- Continue with the **Makefile** targets.
+
+* * *
+
+### Swagger UI
+
+Just open your browser and access the endpoint `/`
+
+![](/docs/swagger.png)
+
+* * *
+
+## Makefile targets
+
+So let's go!
 
 - create a user and associate with group, e.g:
 ```shell

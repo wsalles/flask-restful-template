@@ -46,14 +46,15 @@ delete-person:
 
 # USERNAME --------------------------------------------------------------------------------
 create-user: check_user
-	@curl -X POST ${BASE_URL}/register \
+	@curl -X POST ${BASE_URL}/register/${name} \
 		-H 'content-type: application/json' \
-		-d '{"username": "${name}", "password": "${password}", "group_id": "${group_id}"}'
+		-d '{"password": "${password}", "group_id": "${group_id}"}'
+
 
 update-user: check_user
-	@curl -X PUT ${BASE_URL}/register \
+	@curl -X PUT ${BASE_URL}/register/${name} \
 		-H 'content-type: application/json' \
-		-d '{"username": "${name}", "password": "${password}", "group_id": "${group_id}"}'
+		-d '{"password": "${password}", "group_id": "${group_id}"}'
 
 delete-user:
 	@curl -X DELETE ${BASE_URL}/register/${name} \
@@ -62,4 +63,8 @@ delete-user:
 # GROUP -----------------------------------------------------------------------------------
 create-group: check_group
 	@curl -X POST ${BASE_URL}/group/${name} \
+		-H 'content-type: application/json'
+
+delete-group: check_group
+	@curl -X DELETE ${BASE_URL}/group/${name} \
 		-H 'content-type: application/json'

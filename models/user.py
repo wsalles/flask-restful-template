@@ -17,7 +17,7 @@ class UserModel(db.Model):
         self.group_id = group_id
 
     def json(self):
-        return {'name': self.username, 'group_id': self.group_id}
+        return self.username
 
     def save_to_db(self):
         db.session.add(self)

@@ -13,7 +13,9 @@ class GroupModel(db.Model):
         self.name = name
 
     def json(self):
-        return {'name': self.name, 'users': [u.json() for u in self.users.all()]}
+        group = GroupModel.query.filter_by(name=self.name).first()
+        return {'name': group.name, 'id': group.id,
+                'users': [u.json() for u in self.users.all()]}
 
     @classmethod
     def find_by_name(cls, name):
