@@ -9,7 +9,7 @@ class UserModel(db.Model):
     password = db.Column(db.String(80))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
 
-    group = db.relationship('GroupModel')
+    group = db.relationship('GroupModel', back_populates="users")
 
     def __init__(self, username, password, group_id):
         self.username = username
