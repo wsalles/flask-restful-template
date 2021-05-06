@@ -52,4 +52,4 @@ class Group(MethodResource, Resource):
 class GroupList(MethodResource, Resource):
     @doc(description='Here you can get information from all group.', tags=['Groups'])
     def get(self):
-        return {'groups': list(map(lambda x: x.json(), GroupModel.query.all()))}
+        return {'groups': [x.json() for x in GroupModel.query.all()]}

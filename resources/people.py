@@ -89,4 +89,4 @@ class People(MethodResource, Resource):
 class PeopleList(MethodResource, Resource):
     @doc(description='Here you can get information from everyone.', tags=['People'])
     def get(self):
-        return {'people': list(map(lambda x: x.json(), PeopleModel.query.all()))}
+        return {'people': [x.json() for x in PeopleModel.query.all()]}
