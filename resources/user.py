@@ -71,7 +71,7 @@ class UserRegister(MethodResource, Resource):
 
         user.save_to_db()
 
-        return user.json()
+        return {"message": "User updated successfully."}, 201
 
     @doc(description='Here you can delete a user to generate a token.', tags=['UserRegister'])
     def delete(self, username):
