@@ -1,16 +1,15 @@
 from flask_restful import Resource, reqparse
 from models.people import PeopleModel
 from sources.common import non_empty_value
+from sources.settings import AUTHORIZATION_HEADERS
 from marshmallow import Schema, fields
 from flask_apispec.views import MethodResource
 from flask_apispec import doc, use_kwargs, marshal_with
+from flask_jwt_extended import jwt_required
 
 
 class PeopleResponse(Schema):
-    message = fields.String(required=True)
-    name = fields.String(required=True)
-    role = fields.String(required=True)
-    email = fields.String(required=True)
+    message = fields.Raw(required=True)
 
 
 class PeopleRequest(Schema):
@@ -59,9 +58,10 @@ class People(MethodResource, Resource):
 
         return person.json(), 201
 
-    @doc(description='Here you can update a person.', tags=['People'])
+    @doc(description='Here you can update a person.', tags=['People'], params=AUTHORIZATION_HEADERS)
     @use_kwargs(PeopleRequest, location='json')
     @marshal_with(PeopleResponse)
+    @jwt_required()
     def put(self, name, **kwargs):
         data = People.parser.parse_args()
 
@@ -75,9 +75,11 @@ class People(MethodResource, Resource):
 
         person.save_to_db()
 
-        return person.json()
+        return person.json(), 201
 
-    @doc(description='Here you can delete a person.', tags=['People'])
+    @doc(description='Here you can delete a person.', tags=['People'], params=AUTHORIZATION_HEADERS)
+    @marshal_with(PeopleResponse)
+    @jwt_required()
     def delete(self, name):
         person = PeopleModel.find_by_name(name)
         if person:
@@ -89,4 +91,4 @@ class People(MethodResource, Resource):
 class PeopleList(MethodResource, Resource):
     @doc(description='Here you can get information from everyone.', tags=['People'])
     def get(self):
-        return {'people': [x.json() for x in PeopleModel.query.all()]}
+        return {'people': [x.json() for x in PeopleModel.find_all()]}, 200

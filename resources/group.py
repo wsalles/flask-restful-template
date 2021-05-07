@@ -6,11 +6,8 @@ from flask_apispec import doc, marshal_with
 
 
 class GroupResponse(Schema):
-    message = fields.String(required=True)
-    name = fields.String(required=True)
-    groups = fields.String(required=True)
-    id = fields.String(required=False, dump_only=True)
-    users = fields.String(required=False, dump_only=True)
+    message = fields.Raw(required=True)
+    groups = fields.Raw(required=True)
 
 
 class GroupRequest(Schema):
@@ -51,5 +48,6 @@ class Group(MethodResource, Resource):
 
 class GroupList(MethodResource, Resource):
     @doc(description='Here you can get information from all group.', tags=['Groups'])
+    @marshal_with(GroupResponse)
     def get(self):
-        return {'groups': [x.json() for x in GroupModel.query.all()]}
+        return {'groups': [x.json() for x in GroupModel.find_all()]}, 200

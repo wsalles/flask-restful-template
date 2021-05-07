@@ -17,13 +17,17 @@ class UserModel(db.Model):
         self.group_id = group_id
 
     def json(self):
-        return self.username
+        return {
+            'id': self.id,
+            'username': self.username,
+            'group': None if self.group is None else self.group.name
+        }
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_to_db(self):
+    def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
 
@@ -34,3 +38,7 @@ class UserModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_all(cls):
+        return cls.query.all()
