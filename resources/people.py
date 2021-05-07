@@ -10,6 +10,9 @@ from flask_jwt_extended import jwt_required
 
 class PeopleResponse(Schema):
     message = fields.Raw(required=True)
+    name = fields.String(required=True)
+    role = fields.String(required=True)
+    email = fields.Email(required=True)
 
 
 class PeopleRequest(Schema):
