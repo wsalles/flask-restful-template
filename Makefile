@@ -24,7 +24,7 @@ routes:
 
 # JWT: /AUTH ------------------------------------------------------------------------------
 token:
-	@curl -X POST ${BASE_URL}/auth \
+	@curl -X POST ${BASE_URL}/login \
 		-H 'content-type: application/json' \
 		-d '{"username": "${jwt_user}", "password": "${jwt_pass}"}'
 
@@ -32,17 +32,18 @@ token:
 create-person: check_person
 	@curl -X POST ${BASE_URL}/person/${name} \
 		-H 'content-type: application/json' \
-		-d '{"role": "${role}", "email": "${email}"}' \
-		-H 'Authorization: JWT ${token}'
+		-d '{"role": "${role}", "email": "${email}"}'
 
 update-person: check_person
 	@curl -X PUT ${BASE_URL}/person/${name} \
 		-H 'content-type: application/json' \
 		-d '{"role": "${role}", "email": "${email}"}' \
+		-H 'Authorization: Bearer ${token}'
 
 delete-person:
 	@curl -X DELETE ${BASE_URL}/person/${name} \
-		-H 'content-type: application/json'
+		-H 'content-type: application/json' \
+		-H 'Authorization: Bearer ${token}'
 
 # USERNAME --------------------------------------------------------------------------------
 create-user: check_user

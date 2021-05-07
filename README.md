@@ -13,8 +13,8 @@ The project has:
   <td><a href="https://flask-restful.readthedocs.io/en/latest/">https://flask-restful.readthedocs.io/en/latest/</a></td>
 </tr>
 <tr>
-  <td>Flask-JWT</td>
-  <td><a href="https://pythonhosted.org/Flask-JWT/">https://pythonhosted.org/Flask-JWT/</a></td>
+  <td>Flask-JWT-Extended</td>
+  <td><a href="https://flask-jwt-extended.readthedocs.io/en/stable/">https://flask-jwt-extended.readthedocs.io/en/stable/</a></td>
 </tr>
 <tr>
   <td>Flask-SQLAlchemy</td>
@@ -162,7 +162,8 @@ With the username, you can generate token, then do:
 $: make token jwt_user=wallace jwt_pass=salles
 
 {
-  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJI......U_TjASv45sp_M0oFdpqd2udGo"
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..R21M_S-MdX7ghsvpCxtqNikwlvC6wkh4Ekk9Xgxd-lw",
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..3ZizIrHghQJoirOTeb2SMIJ1Qb1ujkyabYCyoIXIfhg"
 }
 ```
 >> Putting the password on the CLI doesn't seem very secure, right?
@@ -173,6 +174,8 @@ $: make token jwt_user=wallace jwt_pass=salles
 >
 > **Note:** I decided to remove the `jwt_required` decorator to avoid complexity in this project, but it's easy to put
 > in again. Therefore, it isn't necessary to generate a token for these tests.
+> 
+> **Exception:** With my studies in JWT, I included it only in the class People: PUT and DELETE methods.
 
 
 Now you can play with creating, removing and updating people, e.g:

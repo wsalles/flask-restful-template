@@ -2,13 +2,12 @@ from sources.db import db
 from sources import settings
 from flask import Flask
 from flask_restful import Api
-from flask_jwt import JWT
-from sources.security import authenticate, identify
+from flask_jwt_extended import JWTManager
+from flask_apispec.extension import FlaskApiSpec
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
-from flask_apispec.extension import FlaskApiSpec
 from resources.people import People, PeopleList
-from resources.user import UserRegister
+from resources.user import User, UserRegister, UserLogin, UserLogout, TokenRefresh
 from resources.group import Group, GroupList
 
 
@@ -40,7 +39,7 @@ def create_tables():
 
 
 # URI to generate token in /auth
-jwt = JWT(app, authenticate, identify)
+jwt = JWTManager(app)
 
 
 # Routes
@@ -49,13 +48,21 @@ api.add_resource(People, '/person/<name>')
 api.add_resource(GroupList, '/groups')
 api.add_resource(Group, '/group/<name>')
 api.add_resource(UserRegister, '/register/<username>')
+api.add_resource(User, '/user/<int:user_id>')
+api.add_resource(UserLogin, '/login')
+api.add_resource(TokenRefresh, '/refresh')
+api.add_resource(UserLogout, '/logout')
 
 # Feeds the Swagger
 docs.register(PeopleList)
 docs.register(People)
 docs.register(GroupList)
 docs.register(Group)
+docs.register(User)
 docs.register(UserRegister)
+docs.register(UserLogin)
+docs.register(TokenRefresh)
+docs.register(UserLogout)
 
 
 if "__main__" == __name__:
