@@ -95,7 +95,7 @@ def revoked_token_callback(jwt_header, jwt_payload):
 
 
 # Routes
-api.add_resource(People, '/people')
+api.add_resource(PeopleList, '/people')
 api.add_resource(People, '/person/<name>')
 api.add_resource(GroupList, '/groups')
 api.add_resource(Group, '/group/<name>')
